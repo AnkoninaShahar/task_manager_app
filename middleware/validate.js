@@ -1,11 +1,11 @@
-const validate = (schema) => async (res, req, next) => {
+const validate = (schema) => async (req, res, next) => {
   try {
     req.body = await schema.parseAsync(req.body);
     next();
   } catch (error) {
-    res.status(500).json({
+    res.status(400).json({
       error: "Validation failed",
-      details: error.error,
+      details: error.errors,
     });
   }
 };
